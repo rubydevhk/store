@@ -2,12 +2,12 @@
 service: store
 
 # Name of the container image (use your-user/app-name on external registries).
-image: store
+image: rubydevhk/store
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    - 192.168.1.13
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -25,16 +25,25 @@ servers:
 #   host: app.example.com
 
 # Where you keep your container images.
-registry:
+#registry:
   # Alternatives: hub.docker.com / registry.digitalocean.com / ghcr.io / ...
-  server: localhost:5555
+  #server: localhost:5555
+  #username: rubydevhk
 
   # Needed for authenticated registries.
   # username: your-user
 
   # Always use an access token rather than real password when possible.
-  # password:
-  #   - KAMAL_REGISTRY_PASSWORD
+  #password:
+     #- KAMAL_REGISTRY_PASSWORD
+registry:
+  server: docker.io
+  username: rubydevhk
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+proxy:
+  ssl: false
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:

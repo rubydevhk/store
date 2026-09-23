@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
+  resource :sign_up
+  namespace :settings do
+    resource :password, only: [ :show, :update ]
+    resource :profile, only: [ :show, :update ]
+
+    root to: redirect("/settings/profile")
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -28,5 +37,8 @@ Rails.application.routes.draw do
   # get "/blog/:title", to: "blog#show"
   #
   root "products#index"
-  resources :products
+  resources :products do
+    resources :subscribers, only: [ :create ]
+  end
+  resource :unsubscribe, only: [ :show ]
 end
